@@ -20,15 +20,11 @@
 
 ## Quick Start
 
-### 1. Download and install
+### 1. Install
 
 ```bash
-# Download the latest release
-unzip DirectorsCut-0.1.0-arm64.zip
-cd DirectorsCut-0.1.0-arm64
-
-# Run the installer (copies binary to /usr/local/bin)
-./install.sh
+brew tap MatthewWaller/directorscut
+brew install directorscut
 ```
 
 ### 2. Configure
