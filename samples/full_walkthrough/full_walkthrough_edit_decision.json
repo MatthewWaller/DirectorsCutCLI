@@ -1,0 +1,275 @@
+{
+  "clips": [
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/2_file_tour_trim.mp4",
+      "start_time": 0.0,
+      "end_time": 4.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/6_show_video.mp4",
+      "start_time": 0.0,
+      "end_time": 4.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/5_first_edit_analysis.mp4",
+      "start_time": 0.0,
+      "end_time": 3.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/4_doctor.mp4",
+      "start_time": 2.0,
+      "end_time": 5.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/5_render_start.mp4",
+      "start_time": 0.0,
+      "end_time": 2.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/5_render_end.mp4",
+      "start_time": 10.0,
+      "end_time": 13.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/5_end_of_edit.mp4",
+      "start_time": 228.0,
+      "end_time": 231.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/6_show_video.mp4",
+      "start_time": 35.0,
+      "end_time": 45.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/2_file_tour_trim.mp4",
+      "start_time": 25.0,
+      "end_time": 30.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/8_edit_decisions.mp4",
+      "start_time": 0.0,
+      "end_time": 5.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/9_Video_Only_Generation_Start.mp4",
+      "start_time": 0.0,
+      "end_time": 3.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/9_Video_Only_Generation_End.mp4",
+      "start_time": 44.0,
+      "end_time": 48.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/10_Add_Narration.mp4",
+      "start_time": 64.0,
+      "end_time": 69.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/11_AddSubtitles.mp4",
+      "start_time": 67.0,
+      "end_time": 72.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/12_Local_TTS_start_render.mp4",
+      "start_time": 0.0,
+      "end_time": 3.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/12_Local_TTS_end.mp4",
+      "start_time": 58.0,
+      "end_time": 63.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/13_Different_Prompts_Panda_vs_Godzilla_till_render.mp4",
+      "start_time": 0.0,
+      "end_time": 3.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/13_Different_Prompts_Panda_vs_Godzilla_finished.mp4",
+      "start_time": 85.0,
+      "end_time": 91.0,
+      "track": 0
+    },
+    {
+      "source_path": "/Users/matthewwaller/Developer/Mad Scientists Lab/DirectorsCut/raw_footage/directorscut_marketing/14_Closing.mp4",
+      "start_time": 19.0,
+      "end_time": 20.0,
+      "track": 0
+    }
+  ],
+  "text_elements": [
+    {
+      "text": "Start with raw unedited clips",
+      "start_time": 0,
+      "duration": 4.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Get a quality edit",
+      "start_time": 4,
+      "duration": 4.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Agentic video editing via CLI",
+      "start_time": 8,
+      "duration": 3.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Automated cloud analysis & local rendering",
+      "start_time": 14,
+      "duration": 8.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "The Magic Moment: A full showcase",
+      "start_time": 22,
+      "duration": 10.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Video, Audio, JSON, and Scripts",
+      "start_time": 32,
+      "duration": 5.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Transparent AI Decision-making",
+      "start_time": 37,
+      "duration": 5.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Modular Workflow: Video, Narration, Subtitles",
+      "start_time": 42,
+      "duration": 7.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "TikTok-style auto-subtitles",
+      "start_time": 54,
+      "duration": 5.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Local Voice Cloning",
+      "start_time": 59,
+      "duration": 8.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "Infinite variations from one prompt",
+      "start_time": 67,
+      "duration": 9.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 48,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.5
+    },
+    {
+      "text": "DirectorsCut",
+      "start_time": 76,
+      "duration": 1.0,
+      "position": "bottom",
+      "is_title_card": false,
+      "font_size": 72,
+      "color": "#FFFFFF",
+      "background_color": "#000000",
+      "background_opacity": 0.8
+    }
+  ],
+  "narration_text": "Unedited footage is a headache, but with DirectorsCut, you can transform raw clips into polished product showcases in minutes. This agentic CLI tool handles everything: from diagnostic checks to full cloud-based analysis and rendering. The result is pure magic\u2014complete with editable JSON decisions, modular video-only workflows, and AI-generated narration. You can even add TikTok-style synced subtitles or use local voice cloning for total privacy. One set of footage, infinite creative prompts. Experience the future of automated editing with DirectorsCut.",
+  "transitions": [
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut",
+    "cut"
+  ],
+  "reasoning": "The edit strictly follows the user's 13-point narrative arc while condensing the footage to a punchy ~80-second product walkthrough. To maintain momentum and fulfill the 'speed up render waits' request, I used jump-cuts between the start and end of various processing tasks. Titles are positioned at the bottom to avoid obscuring the macOS terminal UI. Most available clips were utilized to show the full breadth of the tool's features, transitioning quickly between each capability to create a high-energy demo feel."
+}

@@ -1,0 +1,2 @@
+This is footage of a 3D scanning app called Sapling being used to scan physical objects. 
+It's an iOS app, and it can be used to export to formats for 3D printing. The app can use LIDAR, or a turntable mode.

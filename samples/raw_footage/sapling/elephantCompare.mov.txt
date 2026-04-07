@@ -1,0 +1,1 @@
+shows both the 3D model of an elephant alongside the original elphant figurine that was 3D scanned.

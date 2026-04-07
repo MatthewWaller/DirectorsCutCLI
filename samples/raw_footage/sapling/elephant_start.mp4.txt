@@ -1,0 +1,1 @@
+A user starts scanning a wooden elephant figurine. The bounding box is set, and the scan begins.

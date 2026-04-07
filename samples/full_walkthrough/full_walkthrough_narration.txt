@@ -1,0 +1,25 @@
+Start with raw, unedited clips. Just a bunch of files in a folder.
+
+But with DirectorsCut, you can turn those files into a professional edit in moments.
+
+It’s an agentic video editor that lives right in your terminal. 
+
+Use the doctor command to check your setup...
+
+...then just describe the video you want. The AI analyzes your footage, makes creative decisions, and handles the rendering.
+
+... Look at that. Perfectly timed cuts, narration, and overlays.
+
+You’re not just getting an mp4. You get the scripts, the audio, and the project data.
+
+Every AI decision is transparent and editable in this JSON file, giving you total control.
+
+The workflow is modular. You can generate just the video first...
+
+...then layer on the narration and burn in word-by-word subtitles for social media.
+
+For efficient cost, use Chatterbox for local, on-device voice cloning and text-to-speech.
+
+From one set of footage, you can create infinite variations just by changing your natural language prompt.
+
+Spend less time editing and more time creating. This is DirectorsCut.
