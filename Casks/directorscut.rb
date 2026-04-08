@@ -1,6 +1,6 @@
 cask "directorscut" do
   version "0.1.0"
-  sha256 "22d05bb1448703df4b92e6e02a487f0922fafc87564f2d071d7e65bc61e136ce"
+  sha256 "9d660132bec7947083fb04ccd837fa67f7eb9f1df1e59a709e41915d77ad0112"
 
   url "https://github.com/MatthewWaller/homebrew-directorscut/releases/download/v#{version}/directorscut-#{version}-arm64.tar.gz"
   name "DirectorsCut"
