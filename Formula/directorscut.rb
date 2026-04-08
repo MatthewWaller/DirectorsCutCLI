@@ -9,11 +9,17 @@ class Directorscut < Formula
   depends_on arch: :arm64
   depends_on "ffmpeg"
 
+  # Skip Homebrew's dylib relocation — PyInstaller bundles are self-contained
+  skip_clean :all
+
   def install
     # Install the entire directory bundle (binary + shared libs)
     libexec.install Dir["*"]
-    # Symlink the binary into bin/
-    bin.install_symlink libexec/"directorscut"
+    # Wrapper script so the binary can find its co-located libs
+    (bin/"directorscut").write <<~SH
+      #!/bin/bash
+      exec "#{libexec}/directorscut" "$@"
+    SH
   end
 
   def post_install
