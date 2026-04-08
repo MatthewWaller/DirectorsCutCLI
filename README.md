@@ -467,9 +467,9 @@ Footage Folder ──> Analyze ──> Edit Decisions ──> Render ──> Out
 
 ## Samples
 
-The `samples/full_walkthrough/` directory contains a complete example:
+The [samples release](https://github.com/MatthewWaller/homebrew-directorscut/releases/tag/samples) contains a complete example:
 
-- `demo_walkthrough.mp4` — Finished video with narration and TikTok-style subtitles
+- `full_walkthrough.mp4` — Finished video with narration and TikTok-style subtitles
 - `full_walkthrough_edit_decision.json` — The AI's edit decisions (inspect and learn the format)
 - `full_walkthrough_narration.txt` — Generated narration script
 - `full_walkthrough_subtitles.ass` — Generated subtitle file
