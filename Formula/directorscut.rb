@@ -2,7 +2,7 @@ class Directorscut < Formula
   desc "AI video editing from the command line"
   homepage "https://github.com/MatthewWaller/homebrew-directorscut"
   url "https://github.com/MatthewWaller/homebrew-directorscut/releases/download/v0.1.0/directorscut-0.1.0-arm64.tar.gz"
-  sha256 "5b2f1a6e8b1425f44481fd7bc35346d8b953161ffcb0971336bab932f0393883"
+  sha256 "dd154e7e5cd46434ce021088bffc3737fc83761b36e779007b5d8c2cba5b1779"
   version "0.1.0"
 
   depends_on macos: :monterey
