@@ -11,7 +11,7 @@ cask "directorscut" do
   depends_on arch: :arm64
   depends_on formula: "ffmpeg"
 
-  binary "directorscut"
+  binary "directorscut/directorscut"
 
   postflight do
     config_dir = Pathname.new(Dir.home) / ".directorscut"
@@ -19,7 +19,7 @@ cask "directorscut" do
 
     env_file = config_dir / ".env"
     unless env_file.exist?
-      env_example = staged_path / ".env.example"
+      env_example = staged_path / "directorscut" / ".env.example"
       FileUtils.cp(env_example, env_file) if env_example.exist?
     end
   end
