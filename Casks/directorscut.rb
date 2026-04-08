@@ -14,6 +14,11 @@ cask "directorscut" do
   binary "directorscut/directorscut"
 
   postflight do
+    # Remove quarantine so Gatekeeper doesn't block the unsigned binary
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", staged_path/"directorscut"],
+                   sudo: false
+
     config_dir = Pathname.new(Dir.home) / ".directorscut"
     config_dir.mkpath unless config_dir.exist?
 
