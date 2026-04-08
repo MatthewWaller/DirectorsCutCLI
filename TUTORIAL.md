@@ -32,7 +32,7 @@ brew install ffmpeg
 
 ```bash
 brew tap MatthewWaller/directorscut
-brew install directorscut
+brew install --cask directorscut
 ```
 
 Confirm the command is available:

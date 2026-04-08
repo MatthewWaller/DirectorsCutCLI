@@ -19,6 +19,11 @@ cask "directorscut" do
                    args: ["-dr", "com.apple.quarantine", staged_path/"directorscut"],
                    sudo: false
 
+    # Warm up macOS Gatekeeper scan so the first user command is fast
+    system_command staged_path/"directorscut"/"directorscut",
+                   args: ["--version"],
+                   print_stderr: false
+
     config_dir = Pathname.new(Dir.home) / ".directorscut"
     config_dir.mkpath unless config_dir.exist?
 

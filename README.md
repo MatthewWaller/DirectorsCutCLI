@@ -24,7 +24,7 @@
 
 ```bash
 brew tap MatthewWaller/directorscut
-brew install directorscut
+brew install --cask directorscut
 ```
 
 ### 2. Configure
