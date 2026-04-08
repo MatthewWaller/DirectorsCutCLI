@@ -1,6 +1,6 @@
 cask "directorscut" do
   version "0.1.0"
-  sha256 "014392dfccd633d1efe81f11e4b8f75493414d96d43a316210200dc8f073a766"
+  sha256 "3b791601eb71f6f4bfec61af3de0a4e02a19fa16e17c68311e350a81ebec6021"
 
   url "https://github.com/MatthewWaller/homebrew-directorscut/releases/download/v#{version}/directorscut-#{version}-arm64.tar.gz"
   name "DirectorsCut"
@@ -20,7 +20,9 @@ cask "directorscut" do
                    sudo: false
 
     # Warm up macOS code signature verification so the first user command is fast
-    system_command "/opt/homebrew/bin/directorscut", args: ["--version"], print_stderr: false
+    system_command (staged_path/"directorscut"/"_env"/"bin"/"python").to_s,
+                   args: ["-c", "print('ok')"],
+                   print_stderr: false
 
     config_dir = Pathname.new(Dir.home) / ".directorscut"
     config_dir.mkpath unless config_dir.exist?
