@@ -2,7 +2,7 @@ class Directorscut < Formula
   desc "AI video editing from the command line"
   homepage "https://github.com/MatthewWaller/homebrew-directorscut"
   url "https://github.com/MatthewWaller/homebrew-directorscut/releases/download/v0.1.0/directorscut-0.1.0-arm64.tar.gz"
-  sha256 "41e4e0706c820c18817540891c7905d99af7f9ee2cd77059ab1d9ede2de6cc8e"
+  sha256 "48d962ac8298252a92b685752f2c01479b18ea826bcf4ffc7a86c3daa3e5b0d6"
   version "0.1.0"
 
   depends_on macos: :monterey
@@ -10,7 +10,10 @@ class Directorscut < Formula
   depends_on "ffmpeg"
 
   def install
-    bin.install "directorscut"
+    # Install the entire directory bundle (binary + shared libs)
+    libexec.install Dir["*"]
+    # Symlink the binary into bin/
+    bin.install_symlink libexec/"directorscut"
   end
 
   def post_install
@@ -19,7 +22,7 @@ class Directorscut < Formula
 
     env_file = config_dir / ".env"
     unless env_file.exist?
-      env_example = prefix / ".env.example"
+      env_example = libexec / ".env.example"
       cp env_example, env_file if env_example.exist?
     end
   end
