@@ -45,7 +45,7 @@ directorscut edit -p <PROMPT> -f <FOOTAGE_DIR> -o <OUTPUT_PATH> [OPTIONS]
 |----------|-------------|
 | `-p, --prompt <text>` | Natural language description of the desired video |
 | `-f, --footage <dir>` | Directory containing raw video clips |
-| `-o, --output <path>` | Output video file path (.mp4) |
+| `-o, --output <dir>` | Output project directory (video is saved as `<dir>/<name>.mp4` with all derivatives alongside) |
 
 **Optional arguments:**
 | Argument | Default | Description |
@@ -72,15 +72,15 @@ directorscut edit -p <PROMPT> -f <FOOTAGE_DIR> -o <OUTPUT_PATH> [OPTIONS]
 4. Renders timeline with MoviePy (transitions, framing, text overlays, title cards)
 5. Optionally generates narration (LLM writes script, TTS synthesizes) and burns subtitles
 
-**Output files produced:**
-- `<output>.mp4` — Rendered video
-- `<output>_edit_decision.json` — AI edit decisions (reusable with `--edit-decision`)
-- `<output>_narration.txt` — Narration script (if `--generate-narration`)
-- `<output>_narration.mp3` — Narration audio (if `--generate-narration`)
-- `<output>_narration.words.json` — Word-level timestamps (if `--generate-narration`)
-- `<output>_narrated.mp4` — Video with narration mixed in (if `--generate-narration`)
-- `<output>_subtitles.ass` — Subtitle file (if `--subtitles`)
-- `<output>_narrated_subtitled.mp4` — Final video with everything (if narration + subtitles)
+**Output files produced** (inside the project directory):
+- `<name>/<name>.mp4` — Rendered video
+- `<name>/<name>_edit_decision.json` — AI edit decisions (reusable with `--edit-decision`)
+- `<name>/<name>_narration.txt` — Narration script (if `--generate-narration`)
+- `<name>/<name>_narration.mp3` — Narration audio (if `--generate-narration`)
+- `<name>/<name>_narration.words.json` — Word-level timestamps (if `--generate-narration`)
+- `<name>/<name>_narrated.mp4` — Video with narration mixed in (if `--generate-narration`)
+- `<name>/<name>_subtitles.ass` — Subtitle file (if `--subtitles`)
+- `<name>/<name>_narrated_subtitled.mp4` — Final video with everything (if narration + subtitles)
 
 ---
 
@@ -269,7 +269,7 @@ Config file location: `~/.directorscut/.env` (global) or `.env` in project direc
 ```bash
 directorscut edit \
   -p "15-second TikTok hook — start with the most impressive moment" \
-  -f ./footage/ -o clip.mp4 \
+  -f ./footage/ -o ./clip \
   --aspect-ratio 9:16 --generate-narration -s tiktok
 ```
 
@@ -280,23 +280,23 @@ directorscut edit \
 directorscut analyze ./footage
 
 # Try different prompts (instant, no re-analysis)
-directorscut edit -p "Product demo" -f ./footage -o v1.mp4 --cache ./footage/analysis.db
-directorscut edit -p "Behind the scenes" -f ./footage -o v2.mp4 --cache ./footage/analysis.db
-directorscut edit -p "Tutorial" -f ./footage -o v3.mp4 --cache ./footage/analysis.db
+directorscut edit -p "Product demo" -f ./footage -o ./v1 --cache ./footage/analysis.db
+directorscut edit -p "Behind the scenes" -f ./footage -o ./v2 --cache ./footage/analysis.db
+directorscut edit -p "Tutorial" -f ./footage -o ./v3 --cache ./footage/analysis.db
 ```
 
 ### Workflow: Manual edit decision refinement
 
 ```bash
 # Generate initial edit
-directorscut edit -p "Highlight reel" -f ./footage -o v1.mp4
+directorscut edit -p "Highlight reel" -f ./footage -o ./v1
 
 # Inspect and manually edit the JSON
-cat v1_edit_decision.json   # review AI decisions
+cat v1/v1_edit_decision.json   # review AI decisions
 # ... edit the JSON to adjust clip selection, timing, etc.
 
 # Re-render from modified JSON (no AI call)
-directorscut edit -p "" -f ./footage -o v2.mp4 --edit-decision v1_edit_decision.json
+directorscut edit -p "" -f ./footage -o ./v2 --edit-decision v1/v1_edit_decision.json
 ```
 
 ### Workflow: Add narration to existing video
@@ -325,7 +325,7 @@ directorscut narrate video.mp4 -p "Product walkthrough" --tts local
 
 ```bash
 # Generate rough cut with OTIO export
-directorscut edit -p "Interview rough cut" -f ./footage -o rough.mp4 --export-otio timeline.otio
+directorscut edit -p "Interview rough cut" -f ./footage -o ./rough --export-otio timeline.otio
 
 # Open timeline.otio in Premiere Pro, DaVinci Resolve, or Final Cut Pro
 ```
@@ -344,7 +344,7 @@ footage/
   turntable_demo.mp4.txt           # "Demonstrates the turntable scanning mode"
 
 # Edit — context files are auto-detected, no flags needed
-directorscut edit -p "Product demo showing all scanning modes" -f ./footage -o demo.mp4
+directorscut edit -p "Product demo showing all scanning modes" -f ./footage -o ./demo
 ```
 
 ---

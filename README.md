@@ -57,7 +57,7 @@ directorscut doctor
 directorscut edit \
   -p "Create a 30-second highlight reel" \
   -f ./my-footage/ \
-  -o highlight.mp4
+  -o ./highlight
 ```
 
 ## Requirements
@@ -79,7 +79,7 @@ The main command. Analyzes your footage, generates AI edit decisions, and render
 directorscut edit \
   -p "Create a 30-second product demo with upbeat narration" \
   -f ./raw-footage/ \
-  -o demo.mp4
+  -o ./demo
 ```
 
 **Key flags:**
@@ -88,7 +88,7 @@ directorscut edit \
 |------|-------------|
 | `-p, --prompt` | Natural language description of the video you want |
 | `-f, --footage` | Folder containing raw video clips |
-| `-o, --output` | Output video path |
+| `-o, --output` | Output project directory (video is saved as `<dir>/<name>.mp4` with all derivatives alongside) |
 | `--generate-narration` | Auto-generate AI voiceover |
 | `--narration <path>` | Use an existing narration audio file |
 | `-s, --subtitles <style>` | Add animated subtitles: `default`, `bold`, `minimal`, `tiktok` |
@@ -233,7 +233,7 @@ Describe the video you want in natural language. The AI analyzes your footage, s
 directorscut edit \
   -p "Create a 1-minute product walkthrough. Start with the end result for a hook, then show the process step by step." \
   -f ./footage \
-  -o walkthrough.mp4
+  -o ./walkthrough
 ```
 
 ### AI narration with voice cloning
@@ -242,7 +242,7 @@ Auto-generate voiceover scripts timed to your video pacing. Use ElevenLabs for c
 
 ```bash
 # Cloud narration
-directorscut edit -p "Product demo" -f ./footage -o demo.mp4 --generate-narration
+directorscut edit -p "Product demo" -f ./footage -o ./demo --generate-narration
 
 # Local voice cloning (set DIRECTORSCUT_VOICE_REF in .env)
 directorscut narrate video.mp4 -p "Tutorial walkthrough" --tts local
@@ -272,11 +272,11 @@ Every edit decision is saved as readable, editable JSON. You can inspect exactly
 
 ```bash
 # First run generates the edit decision
-directorscut edit -p "Highlight reel" -f ./footage -o v1.mp4
+directorscut edit -p "Highlight reel" -f ./footage -o ./v1
 
 # Edit the JSON to taste, then re-render instantly
-directorscut edit -p "" -f ./footage -o v2.mp4 \
-  --edit-decision v1_edit_decision.json
+directorscut edit -p "" -f ./footage -o ./v2 \
+  --edit-decision v1/v1_edit_decision.json
 ```
 
 ### Batch production
@@ -284,9 +284,9 @@ directorscut edit -p "" -f ./footage -o v2.mp4 \
 Run the same footage with different prompts to get different videos. Great for A/B testing content or producing variations at scale:
 
 ```bash
-directorscut edit -p "30-second product demo" -f ./footage -o demo.mp4
-directorscut edit -p "15-second TikTok hook" -f ./footage -o hook.mp4 --aspect-ratio 9:16
-directorscut edit -p "Tutorial walkthrough" -f ./footage -o tutorial.mp4
+directorscut edit -p "30-second product demo" -f ./footage -o ./demo
+directorscut edit -p "15-second TikTok hook" -f ./footage -o ./hook --aspect-ratio 9:16
+directorscut edit -p "Tutorial walkthrough" -f ./footage -o ./tutorial
 ```
 
 ### Multi-format output
@@ -306,11 +306,11 @@ directorscut edit -p "Tutorial walkthrough" -f ./footage -o tutorial.mp4
 
 ```bash
 # Cloud narration (ElevenLabs)
-directorscut edit -p "Highlight reel" -f ./footage -o video.mp4 \
+directorscut edit -p "Highlight reel" -f ./footage -o ./video \
   --generate-narration
 
 # Local narration (Chatterbox — your voice never leaves your machine)
-directorscut edit -p "Highlight reel" -f ./footage -o video.mp4 \
+directorscut edit -p "Highlight reel" -f ./footage -o ./video \
   --generate-narration --tts local
 ```
 
@@ -328,7 +328,7 @@ Upload directly to YouTube and TikTok with auto-generated titles, descriptions, 
 directorscut edit \
   -p "Create a 30-second product demo showing the scanning workflow" \
   -f ./raw-footage/product-shots/ \
-  -o demo.mp4 \
+  -o ./demo \
   --generate-narration \
   --subtitles tiktok \
   --aspect-ratio 16:9
@@ -340,7 +340,7 @@ directorscut edit \
 directorscut edit \
   -p "15-second hook — start with the most impressive result, then show the quick process" \
   -f ./footage/ \
-  -o tiktok-hook.mp4 \
+  -o ./tiktok-hook \
   --aspect-ratio 9:16 \
   --generate-narration \
   -s tiktok
@@ -352,7 +352,7 @@ directorscut edit \
 directorscut edit \
   -p "Walkthrough video with chapter breaks" \
   -f ./footage/ \
-  -o walkthrough.mp4 \
+  -o ./walkthrough \
   --title-card "Chapter 1: Getting Started|0|3|#1a1a2e|64" \
   --title-card "Chapter 2: Advanced Features|2|3|#1a1a2e|64" \
   --text "Available now|25|4|bottom|48"
@@ -365,9 +365,9 @@ directorscut edit \
 directorscut analyze ./footage
 
 # Now edits are instant — no re-analysis needed
-directorscut edit -p "Highlight reel" -f ./footage -o v1.mp4 --cache ./footage/analysis.db
-directorscut edit -p "Tutorial" -f ./footage -o v2.mp4 --cache ./footage/analysis.db
-directorscut edit -p "Social clip" -f ./footage -o v3.mp4 --cache ./footage/analysis.db --aspect-ratio 9:16
+directorscut edit -p "Highlight reel" -f ./footage -o ./v1 --cache ./footage/analysis.db
+directorscut edit -p "Tutorial" -f ./footage -o ./v2 --cache ./footage/analysis.db
+directorscut edit -p "Social clip" -f ./footage -o ./v3 --cache ./footage/analysis.db --aspect-ratio 9:16
 ```
 
 ### Export to professional NLE
@@ -376,7 +376,7 @@ directorscut edit -p "Social clip" -f ./footage -o v3.mp4 --cache ./footage/anal
 directorscut edit \
   -p "Rough cut of the interview" \
   -f ./footage/ \
-  -o rough-cut.mp4 \
+  -o ./rough-cut \
   --export-otio timeline.otio
 ```
 
@@ -431,18 +431,18 @@ Both levels are combined during analysis — project context gives the big pictu
 
 ## Output Files
 
-A typical edit run produces:
+When you pass `-o ./my_video`, Director's Cut creates a project directory with all outputs:
 
 ```
-output/
-  video.mp4                          # Rendered video
-  video_edit_decision.json           # AI edit decisions (reusable, editable)
-  video_narration.txt                # Narration script
-  video_narration.mp3                # Narration audio
-  video_narration.words.json         # Word-level timestamps
-  video_narrated.mp4                 # Video + narration
-  video_subtitles.ass                # Subtitle file
-  video_narrated_subtitled.mp4       # Final video with everything
+my_video/
+  my_video.mp4                       # Rendered video
+  my_video_edit_decision.json        # AI edit decisions (reusable, editable)
+  my_video_narration.txt             # Narration script
+  my_video_narration.mp3             # Narration audio
+  my_video_narration.words.json      # Word-level timestamps
+  my_video_narrated.mp4              # Video + narration
+  my_video_subtitles.ass             # Subtitle file
+  my_video_narrated_subtitled.mp4    # Final video with everything
 ```
 
 ---

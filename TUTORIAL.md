@@ -119,18 +119,20 @@ Open Terminal and `cd` to wherever the **`sapling`** folder lives. Below, replac
 
 ### Simple first render (recommended)
 
-This creates a short edit from scratch using your prompt and the sample clips:
+This creates a short edit from scratch using your prompt and the sample clips (we'll add audio later for demonstration, though you can do that in one command):
 
 ```bash
 directorscut edit \
   -p "Create a 45-second promo for Sapling: show scanning the elephant figurine, the finished 3D model in AR on the desk, and the side-by-side comparison. Energetic but clear; end with the idea that you can scan real objects and use them for 3D printing." \
   -f ./sapling \
-  -o sapling_promo.mp4
+  -o ./sapling_promo \
+  --aspect-ratio "9:16" \
+  --background black
 ```
 
 - **`-p`** — What you want (length, tone, story).
 - **`-f`** — Folder of source clips (`sapling`).
-- **`-o`** — Output filename.
+- **`-o`** — Output project directory (video is saved as `sapling_promo/sapling_promo.mp4` with all derivatives alongside).
 
 The first run analyzes the clips (this can take a little time). Later runs can reuse a cache for faster iteration (see the main [README](README.md) `analyze` / `--cache` examples).
 
@@ -142,28 +144,29 @@ While you are experimenting with prompts:
 directorscut edit \
   -p "30-second highlight reel of the elephant scan and AR result" \
   -f ./sapling \
-  -o sapling_preview.mp4 \
-  --preview
+  -o ./sapling_preview \
+  --preview \
+  --aspect-ratio "9:16" \
+  --background black
 ```
 
 ### Add AI narration and subtitles
 
-If you configured ElevenLabs (or use local TTS per the README):
+If you configured ElevenLabs you can use that, or use local TTS per the README `--tts local`. You'll need an voice to clone for local text-to-speech:
 
 ```bash
-directorscut edit \
+directorscut narrate sapling_promo/sapling_promo.mp4 \
   -p "1-minute friendly tutorial explaining how Sapling scans a real object and previews it in AR" \
-  -f ./sapling \
-  -o sapling_narrated.mp4 \
-  --generate-narration \
-  --subtitles tiktok
+  -o sapling_promo/sapling_narrated.mp4 \
+  --subtitles tiktok \
+  --tts local
 ```
 
 ---
 
 ## 7. What you get on disk
 
-Besides **`sapling_promo.mp4`** (or whatever name you passed to `-o`), a typical successful run also creates companion files in the same directory, such as:
+Inside the **`sapling_promo/`** directory (or whatever name you passed to `-o`), a typical successful run creates the main video (`sapling_promo/sapling_promo.mp4`) plus companion files, such as:
 
 - `*_edit_decision.json` — The AI’s edit timeline (you can edit and re-render).
 - If you used narration: script, audio, word timestamps, and combined outputs (exact names depend on flags).
@@ -174,7 +177,7 @@ See **Output Files** in [README](README.md) for the full pattern.
 
 ## 8. License and limits
 
-Director’s Cut includes **three free video generations** so you can try it. After that, activate a license with `directorscut activate` (see [README — Licensing](README.md)).
+Director’s Cut includes **three free video generations** so you can try it. After that, activate a one-time payment license with `directorscut activate` (see [README — Licensing](README.md)).
 
 ---
 
