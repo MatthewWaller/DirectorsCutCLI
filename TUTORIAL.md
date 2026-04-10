@@ -1,8 +1,8 @@
-# Director’s Cut — Beginner tutorial
+# Director's Cut — Beginner Tutorial
 
-This guide walks you from **install** through **your first rendered video** using the **Sapling** sample footage.
+This guide walks you from **install** through **your first rendered video** with AI narration, using the **Sapling** sample footage and **local TTS** (no cloud narration service needed).
 
-Director’s Cut is a command-line tool: you point it at a folder of clips, describe the edit you want in plain English, and it produces an MP4 (and optional narration, subtitles, and project files).
+Director's Cut is a command-line tool: you point it at a folder of clips, describe the edit you want in plain English, and it produces an MP4 with optional narration, subtitles, and project files.
 
 ---
 
@@ -14,23 +14,28 @@ Director’s Cut is a command-line tool: you point it at a folder of clips, desc
 | **Homebrew** | Used to install the CLI and FFmpeg. |
 | **FFmpeg** | Required for video encoding. |
 | **Gemini API key** | Powers footage analysis and edit decisions (free tier is enough to get started). |
-| **Internet** | For Gemini (and optional cloud narration). |
-
-Optional: an **ElevenLabs** API key if you want **cloud** AI voiceover. You can also use **local** narration later (`--tts local`) without ElevenLabs.
+| **A short audio clip of your voice** | Used by local TTS to clone your voice for narration. |
 
 ---
 
-## 1. Install FFmpeg
+## 1. Download the reference audio
+
+Local TTS uses **Chatterbox** to clone a voice from a short audio sample. We provide a default reference clip you can start with — you can replace it with your own voice later.
+
+```bash
+mkdir -p ~/.directorscut
+curl -L -o ~/.directorscut/referrence_audio.mp3 \
+  https://github.com/MatthewWaller/homebrew-directorscut/releases/download/samples/referrence_audio.mp3
+```
+
+> **Want to use your own voice?** Record a **10–30 second** clip of clear speech (reading a paragraph works great), export as `.mp3` or `.wav`, and replace the file above.
+
+---
+
+## 2. Install FFmpeg and Director's Cut
 
 ```bash
 brew install ffmpeg
-```
-
----
-
-## 2. Install Director’s Cut
-
-```bash
 brew tap MatthewWaller/directorscut
 brew install --cask directorscut
 ```
@@ -43,29 +48,21 @@ directorscut --help
 
 ---
 
-## 3. Configure API keys
-
-The easiest way is the interactive wizard:
+## 3. Run interactive setup
 
 ```bash
 directorscut setup
 ```
 
-It stores settings in `~/.directorscut/.env`.
+The wizard walks you through each setting. Here's what to expect:
 
-**Manual option:** create or edit `~/.directorscut/.env` and add at least:
+1. **Gemini API key** — Paste your key. Get one free at [Google AI Studio](https://aistudio.google.com/apikey).
+2. **Video provider** — Choose `gemini` (the default).
+3. **TTS provider** — Choose `local` for local narration (no cloud API needed).
+4. **Voice reference** — Point to your audio file: `~/.directorscut/referrence_audio.mp3`
+5. **Whisper model** — `base` is fine for most uses (used for subtitle word timing).
 
-```bash
-DIRECTORSCUT_GEMINI_API_KEY=your_gemini_key_here
-```
-
-Get a Gemini key: [Google AI Studio — API keys](https://aistudio.google.com/apikey)
-
-For cloud narration with ElevenLabs (optional):
-
-```bash
-DIRECTORSCUT_ELEVENLABS_API_KEY=your_elevenlabs_key_here
-```
+Settings are saved to `~/.directorscut/.env`. You can edit this file directly any time.
 
 ---
 
@@ -75,7 +72,7 @@ DIRECTORSCUT_ELEVENLABS_API_KEY=your_elevenlabs_key_here
 directorscut doctor
 ```
 
-Fix anything it reports (missing FFmpeg, bad API key path, etc.) before the next step.
+Fix anything it reports (missing FFmpeg, bad API key, etc.) before continuing.
 
 ---
 
@@ -85,22 +82,12 @@ Download the sample raw clips from the GitHub release:
 
 ```bash
 curl -L -o sapling.zip https://github.com/MatthewWaller/homebrew-directorscut/releases/download/samples/sapling.zip
+unzip sapling.zip
 ```
 
-**Unpack it** (pick one):
+You should get a folder named **`sapling`** containing several video files plus `context.txt` and small `.txt` sidecar files. Those text files give the AI background about the app and each clip — you don't need to edit them.
 
-- In Finder: double-click `sapling.zip` to expand it.
-- In Terminal:
-
-  ```bash
-  unzip sapling.zip
-  ```
-
-You should get a folder named **`sapling`** containing several video files plus `context.txt` and small `.txt` sidecar files. Those text files give the AI background about the app and each clip—you do not need to edit them for this tutorial.
-
-**Tip:** If you see a `__MACOSX` folder after unzipping, you can ignore or delete it. The footage path you pass to Director’s Cut should be the real **`sapling`** folder (the one next to your videos).
-
-Example layout after unzipping:
+Example layout:
 
 ```
 sapling/
@@ -108,18 +95,27 @@ sapling/
   elephant_start.mp4
   elephant_complete_desk_file.mp4
   elephantCompare.mov
-  …and matching .txt sidecar files
+  ...and matching .txt sidecar files
 ```
 
 ---
 
 ## 6. Make your first video
 
-Open Terminal and `cd` to wherever the **`sapling`** folder lives. Below, replace the path with yours if needed.
+### Quick preview (low resolution, fast)
 
-### Simple first render (recommended)
+Start with a preview to test your prompt:
 
-This creates a short edit from scratch using your prompt and the sample clips (we'll add audio later for demonstration, though you can do that in one command):
+```bash
+directorscut edit \
+  -p "30-second highlight reel of the elephant scan and AR result" \
+  -f ./sapling \
+  -o ./sapling_preview \
+  --aspect-ratio "9:16" \
+  --preview
+```
+
+### Full quality edit
 
 ```bash
 directorscut edit \
@@ -131,70 +127,78 @@ directorscut edit \
 ```
 
 - **`-p`** — What you want (length, tone, story).
-- **`-f`** — Folder of source clips (`sapling`).
-- **`-o`** — Output project directory (video is saved as `sapling_promo/sapling_promo.mp4` with all derivatives alongside).
+- **`-f`** — Folder of source clips.
+- **`-o`** — Output project directory (video saved as `sapling_promo/sapling_promo.mp4`).
 
-The first run analyzes the clips (this can take a little time). Later runs can reuse a cache for faster iteration (see the main [README](README.md) `analyze` / `--cache` examples).
+The first run analyzes the clips (this takes a moment). Later runs can reuse a cache — see the [README](README.md) for `analyze` / `--cache` examples.
 
-### Faster low-resolution preview
+---
 
-While you are experimenting with prompts:
+## 7. Add narration with local TTS
 
-```bash
-directorscut edit \
-  -p "30-second highlight reel of the elephant scan and AR result" \
-  -f ./sapling \
-  -o ./sapling_preview \
-  --preview \
-  --aspect-ratio "9:16" \
-  --background black
-```
-
-### Add AI narration and subtitles
-
-If you configured ElevenLabs you can use that, or use local TTS per the README `--tts local`. You'll need an voice to clone for local text-to-speech:
+Now narrate the video using your cloned voice:
 
 ```bash
 directorscut narrate sapling_promo/sapling_promo.mp4 \
-  -p "1-minute friendly tutorial explaining how Sapling scans a real object and previews it in AR" \
+  -p "Friendly tutorial explaining how Sapling scans a real object and previews it in AR" \
   -o sapling_promo/sapling_narrated.mp4 \
-  --subtitles tiktok \
   --tts local
+```
+
+Since you configured local TTS in step 3, Chatterbox uses your reference audio to generate speech that sounds like you. The first run downloads the Chatterbox model (~1 GB) — subsequent runs are fast.
+
+---
+
+## 8. Burn in subtitles
+
+Add TikTok-style animated subtitles to the narrated video:
+
+```bash
+directorscut subtitle sapling_promo/sapling_narrated.mp4 \
+  -o sapling_promo/sapling_final.mp4 \
+  --style tiktok
+```
+
+Or do narration + subtitles in one shot during edit:
+
+```bash
+directorscut edit \
+  -p "45-second Sapling promo" \
+  -f ./sapling \
+  -o ./sapling_full \
+  --generate-narration \
+  --subtitles tiktok \
+  --tts local \
+  --aspect-ratio "9:16"
 ```
 
 ---
 
-## 7. What you get on disk
+## 9. What you get on disk
 
-Inside the **`sapling_promo/`** directory (or whatever name you passed to `-o`), a typical successful run creates the main video (`sapling_promo/sapling_promo.mp4`) plus companion files, such as:
+Inside your project directory (e.g. `sapling_promo/`):
 
-- `*_edit_decision.json` — The AI’s edit timeline (you can edit and re-render).
-- If you used narration: script, audio, word timestamps, and combined outputs (exact names depend on flags).
+- `sapling_promo.mp4` — The rendered video.
+- `*_edit_decision.json` — The AI's edit timeline (you can edit and re-render).
+- Narration files (if used): script, audio, word timestamps.
 
-See **Output Files** in [README](README.md) for the full pattern.
-
----
-
-## 8. License and limits
-
-Director’s Cut includes **three free video generations** so you can try it. After that, activate a one-time payment license with `directorscut activate` (see [README — Licensing](README.md)).
+See **Output Files** in the [README](README.md) for the full pattern.
 
 ---
 
-## 9. If something goes wrong
+## 10. License and limits
+
+Director's Cut includes **three free video generations** so you can try it. After that, activate a one-time payment license with `directorscut activate` (see [README — Licensing](README.md)).
+
+---
+
+## Troubleshooting
 
 1. Run **`directorscut doctor`** again.
 2. Confirm **`./sapling`** really contains `.mp4` / `.mov` files (not only the zip).
 3. Confirm your **Gemini** key is set and billing/API access matches your Google account.
-4. For narration issues, check whether you need **ElevenLabs** or should switch to **`--tts local`** as documented in the README.
-
----
-
-## Reference: finished example
-
-For a full example of outputs (decision JSON, narration, subtitles), download the walkthrough files from the [samples release](https://github.com/MatthewWaller/homebrew-directorscut/releases/tag/samples).
-
-Your Sapling tutorial run uses **different** source clips but the same overall workflow.
+4. If narration sounds wrong, try a clearer reference audio clip (less background noise, 10–30 seconds of speech).
+5. If local TTS model download fails, check your internet connection and try again — the model is cached after the first download.
 
 ---
 
