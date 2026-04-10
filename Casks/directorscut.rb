@@ -1,6 +1,6 @@
 cask "directorscut" do
-  version "0.1.3"
-  sha256 "c3bd548020ef4d89a40a1b7020c224ff545693e0997d549e1c9b0dcfbeb67a97"
+  version "0.1.4"
+  sha256 "6374aade8bba315474a33318073545733df8809c356375882b8454c61a1a7901"
 
   url "https://github.com/MatthewWaller/homebrew-directorscut/releases/download/v#{version}/directorscut-#{version}-arm64.tar.gz"
   name "DirectorsCut"
@@ -32,23 +32,22 @@ cask "directorscut" do
       env_example = staged_path / "directorscut" / ".env.example"
       FileUtils.cp(env_example, env_file) if env_example.exist?
     end
+
   end
 
   caveats <<~EOS
-    To get started, add your API keys:
+    Get started in three steps:
 
-      ~/.directorscut/.env
+      1. Run interactive setup (adds your Gemini key + local TTS):
+           directorscut setup
 
-    Required:
-      DIRECTORSCUT_GEMINI_API_KEY=your_key_here
+      2. Verify your install:
+           directorscut doctor
 
-    Optional (for cloud narration):
-      DIRECTORSCUT_ELEVENLABS_API_KEY=your_key_here
+      3. Make your first video:
+           directorscut edit -p "your prompt" -f ./footage -o ./my_project
 
-    Or run interactive setup:
-      directorscut setup
-
-    Then verify your install:
-      directorscut doctor
+    Config lives at: ~/.directorscut/.env
+    See the Tutorial for setting up local TTS with a reference audio file.
   EOS
 end
