@@ -16,17 +16,17 @@ This document provides structured, machine-readable documentation for Director's
 ## Installation
 
 ```bash
-unzip DirectorsCut-0.1.0-arm64.zip
-cd DirectorsCut-0.1.0-arm64
-./install.sh
+brew install ffmpeg
+brew tap MatthewWaller/directorscut
+brew install --cask directorscut
 directorscut setup    # interactive API key configuration
 directorscut doctor   # verify everything works
 ```
 
-**Dependencies:**
-- FFmpeg: `brew install ffmpeg`
+**Requirements:**
+- macOS with Apple Silicon (M1/M2/M3/M4)
 - Gemini API key (free): https://aistudio.google.com/apikey
-- ElevenLabs API key (optional, free tier): https://elevenlabs.io/app/settings/api-keys
+- ElevenLabs API key (optional, for cloud narration): https://elevenlabs.io/app/settings/api-keys
 
 ---
 
@@ -157,7 +157,7 @@ directorscut subtitle <VIDEO> [OPTIONS]
 | `default` | Arial 24px | Yellow | 4 | General use |
 | `bold` | Arial Black 28px | Yellow | 4 | Emphasis |
 | `minimal` | Helvetica Neue 20px | Orange | 4 | Clean aesthetic |
-| `tiktok` | Arial Black 45px | Red | 3 | Social media (9:16) |
+| `tiktok` | Arial Black 36px | Orange | 3 | Social media (9:16) |
 
 ---
 
@@ -239,7 +239,7 @@ Config file location: `~/.directorscut/.env` (global) or `.env` in project direc
 |----------|---------|-------------|
 | `DIRECTORSCUT_GEMINI_API_KEY` | — | Google Gemini API key for video analysis and edit decisions |
 | `DIRECTORSCUT_ELEVENLABS_API_KEY` | — | ElevenLabs API key for cloud TTS narration |
-| `DIRECTORSCUT_TTS_PROVIDER` | `elevenlabs` | Default TTS engine: `elevenlabs` or `local` |
+| `DIRECTORSCUT_TTS_PROVIDER` | `local` | Default TTS engine: `elevenlabs` or `local` |
 | `DIRECTORSCUT_DEFAULT_ASPECT_RATIO` | `16:9` | Default output aspect ratio |
 | `DIRECTORSCUT_DEFAULT_RESOLUTION` | `1080p` | Default output resolution |
 | `DIRECTORSCUT_PREVIEW_RESOLUTION` | `480p` | Preview mode resolution |
@@ -314,10 +314,15 @@ directorscut narrate video.mp4 -p "Tech reviewer style"
 ### Workflow: Voice cloning (local, private)
 
 ```bash
-# Configure voice reference (10-30 second audio sample)
-echo 'DIRECTORSCUT_VOICE_REF=/path/to/my-voice.mp3' >> ~/.directorscut/.env
+# Download reference audio (or record your own 10-30 second clip)
+mkdir -p ~/.directorscut
+curl -L -o ~/.directorscut/referrence_audio.mp3 \
+  https://github.com/MatthewWaller/homebrew-directorscut/releases/download/samples/referrence_audio.mp3
 
-# Generate narration in your own voice (never leaves your machine)
+# Point config at the reference audio
+echo 'DIRECTORSCUT_VOICE_REF=~/.directorscut/referrence_audio.mp3' >> ~/.directorscut/.env
+
+# Generate narration using voice cloning (never leaves your machine)
 directorscut narrate video.mp4 -p "Product walkthrough" --tts local
 ```
 
